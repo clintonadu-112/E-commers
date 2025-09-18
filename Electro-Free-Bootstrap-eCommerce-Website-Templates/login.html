@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Login - Electro</title>
+
+		<!-- Google font -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		
+		<!-- Font Awesome Icon -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<!-- Custom stlylesheet -->
+		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+
+		<style>
+			.auth-container {
+				min-height: 100vh;
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 20px;
+			}
+
+			.auth-card {
+				background: white;
+				border-radius: 15px;
+				box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+				overflow: hidden;
+				max-width: 400px;
+				width: 100%;
+			}
+
+			.auth-header {
+				background: linear-gradient(45deg, #667eea, #764ba2);
+				color: white;
+				padding: 30px;
+				text-align: center;
+			}
+
+			.auth-header h2 {
+				margin: 0;
+				font-weight: 700;
+				font-size: 28px;
+			}
+
+			.auth-body {
+				padding: 40px 30px;
+			}
+
+			.form-group {
+				margin-bottom: 25px;
+			}
+
+			.form-control {
+				border: 2px solid #e1e5e9;
+				border-radius: 8px;
+				padding: 12px 15px;
+				font-size: 16px;
+				transition: all 0.3s ease;
+			}
+
+			.form-control:focus {
+				border-color: #667eea;
+				box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+			}
+
+			.btn-login {
+				background: linear-gradient(45deg, #667eea, #764ba2);
+				border: none;
+				border-radius: 8px;
+				padding: 12px;
+				font-size: 16px;
+				font-weight: 600;
+				color: white;
+				width: 100%;
+				transition: all 0.3s ease;
+			}
+
+			.btn-login:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+			}
+
+			.auth-footer {
+				text-align: center;
+				padding: 20px 30px;
+				border-top: 1px solid #e1e5e9;
+			}
+
+			.auth-footer a {
+				color: #667eea;
+				text-decoration: none;
+				font-weight: 600;
+			}
+
+			.auth-footer a:hover {
+				text-decoration: underline;
+			}
+
+			.social-login {
+				margin-top: 20px;
+			}
+
+			.social-btn {
+				width: 100%;
+				margin-bottom: 10px;
+				padding: 10px;
+				border-radius: 8px;
+				border: 2px solid #e1e5e9;
+				background: white;
+				color: #333;
+				font-weight: 600;
+				transition: all 0.3s ease;
+			}
+
+			.social-btn:hover {
+				background: #f8f9fa;
+				border-color: #667eea;
+			}
+
+			.social-btn i {
+				margin-right: 10px;
+			}
+
+			.alert {
+				border-radius: 8px;
+				margin-bottom: 20px;
+			}
+
+			.password-toggle {
+				position: relative;
+			}
+
+			.password-toggle .form-control {
+				padding-right: 45px;
+			}
+
+			.password-toggle .toggle-btn {
+				position: absolute;
+				right: 15px;
+				top: 50%;
+				transform: translateY(-50%);
+				background: none;
+				border: none;
+				color: #666;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="auth-container">
+			<div class="auth-card">
+				<div class="auth-header">
+					<h2><i class="fa fa-user"></i> Login</h2>
+					<p style="margin: 10px 0 0 0; opacity: 0.9;">Welcome back to Electro</p>
+				</div>
+
+				<div class="auth-body">
+					<div id="alert-container"></div>
+
+					<form id="loginForm">
+						<div class="form-group">
+							<label for="email">Email Address</label>
+							<input type="email" class="form-control" id="email" name="email" required>
+						</div>
+
+						<div class="form-group">
+							<label for="password">Password</label>
+							<div class="password-toggle">
+								<input type="password" class="form-control" id="password" name="password" required>
+								<button type="button" class="toggle-btn" onclick="togglePassword()">
+									<i class="fa fa-eye"></i>
+								</button>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" id="remember" name="remember"> Remember me
+								</label>
+							</div>
+						</div>
+
+						<button type="submit" class="btn btn-login">
+							<i class="fa fa-sign-in"></i> Login
+						</button>
+					</form>
+
+					<div class="social-login">
+						<p style="text-align: center; color: #666; margin-bottom: 15px;">Or login with</p>
+						
+						<button class="btn social-btn" onclick="socialLogin('google')">
+							<i class="fa fa-google"></i> Google
+						</button>
+						
+						<button class="btn social-btn" onclick="socialLogin('facebook')">
+							<i class="fa fa-facebook"></i> Facebook
+						</button>
+					</div>
+				</div>
+
+				<div class="auth-footer">
+					<p>Don't have an account? <a href="register.html">Sign up here</a></p>
+					<p><a href="forgot-password.html">Forgot your password?</a></p>
+				</div>
+			</div>
+		</div>
+
+		<!-- jQuery -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		
+		<!-- Bootstrap -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+		<script>
+			// Demo credentials for testing
+			const demoCredentials = {
+				'admin@electro.com': { password: 'admin123', role: 'admin' },
+				'user@electro.com': { password: 'user123', role: 'user' },
+				'demo@electro.com': { password: 'demo123', role: 'user' }
+			};
+
+			// Initialize users array with demo credentials if empty
+			function initializeUsers() {
+				const users = JSON.parse(localStorage.getItem('users') || '[]');
+				const demoUsers = [
+					{
+						firstName: 'Admin',
+						lastName: 'User',
+						email: 'admin@electro.com',
+						password: 'admin123',
+						role: 'admin',
+						createdAt: new Date().toISOString()
+					},
+					{
+						firstName: 'Demo',
+						lastName: 'User',
+						email: 'user@electro.com',
+						password: 'user123',
+						role: 'user',
+						createdAt: new Date().toISOString()
+					},
+					{
+						firstName: 'Demo',
+						lastName: 'Account',
+						email: 'demo@electro.com',
+						password: 'demo123',
+						role: 'user',
+						createdAt: new Date().toISOString()
+					}
+				];
+				
+				// Check if demo users exist, if not add them
+				const existingEmails = users.map(u => u.email);
+				const missingDemoUsers = demoUsers.filter(demo => !existingEmails.includes(demo.email));
+				
+				if (missingDemoUsers.length > 0) {
+					// Add missing demo users
+					const updatedUsers = [...users, ...missingDemoUsers];
+					localStorage.setItem('users', JSON.stringify(updatedUsers));
+					console.log('Added demo users:', missingDemoUsers.map(u => u.email));
+				}
+			}
+
+			function showAlert(message, type = 'info') {
+				const alertContainer = document.getElementById('alert-container');
+				const alertClass = type === 'error' ? 'alert-danger' : type === 'success' ? 'alert-success' : 'alert-info';
+				
+				alertContainer.innerHTML = `
+					<div class="alert ${alertClass} alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						${message}
+					</div>
+				`;
+			}
+
+			function togglePassword() {
+				const passwordField = document.getElementById('password');
+				const toggleBtn = document.querySelector('.toggle-btn i');
+				
+				if (passwordField.type === 'password') {
+					passwordField.type = 'text';
+					toggleBtn.className = 'fa fa-eye-slash';
+				} else {
+					passwordField.type = 'password';
+					toggleBtn.className = 'fa fa-eye';
+				}
+			}
+
+			function socialLogin(provider) {
+				showAlert(`Logging in with ${provider}... (Demo mode)`, 'info');
+				setTimeout(() => {
+					showAlert('Social login would be implemented with real OAuth providers', 'info');
+				}, 1000);
+			}
+
+			document.getElementById('loginForm').addEventListener('submit', function(e) {
+				e.preventDefault();
+				
+				const email = document.getElementById('email').value;
+				const password = document.getElementById('password').value;
+				const remember = document.getElementById('remember').checked;
+
+				// Get all users from localStorage
+				const users = JSON.parse(localStorage.getItem('users') || '[]');
+				
+				// Find user by email
+				let user = users.find(u => u.email === email);
+				
+				// If user not found in localStorage, check demo credentials
+				if (!user && demoCredentials[email] && demoCredentials[email].password === password) {
+					user = {
+						email: email,
+						password: password,
+						role: demoCredentials[email].role,
+						firstName: email.split('@')[0],
+						lastName: 'Demo'
+					};
+				}
+				
+				if (user && user.password === password) {
+					// Store user session
+					const userData = {
+						email: email,
+						role: user.role,
+						loginTime: new Date().toISOString(),
+						remember: remember
+					};
+					
+					localStorage.setItem('user', JSON.stringify(userData));
+					
+					showAlert('Login successful! Redirecting...', 'success');
+					
+					setTimeout(() => {
+						// Redirect admin users to admin panel, others to homepage
+						if (user.role === 'admin') {
+							window.location.href = 'admin-panel.html';
+						} else {
+							window.location.href = 'index.html';
+						}
+					}, 1500);
+				} else {
+					showAlert('Invalid email or password. Please check your credentials.', 'error');
+				}
+			});
+
+			// Initialize users and check if user is already logged in
+			window.addEventListener('load', function() {
+				// Initialize users array with demo credentials if empty
+				initializeUsers();
+				
+				const user = JSON.parse(localStorage.getItem('user'));
+				if (user) {
+					showAlert('You are already logged in. Redirecting...', 'info');
+					setTimeout(() => {
+						// Redirect admin users to admin panel, others to homepage
+						if (user.role === 'admin') {
+							window.location.href = 'admin-panel.html';
+						} else {
+							window.location.href = 'index.html';
+						}
+					}, 1500);
+				}
+			});
+		</script>
+	</body>
+</html> 

@@ -8,24 +8,25 @@
 
 		<title>Electro - HTML Ecommerce Template</title>
 
- 		<!-- Google font -->
- 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+		<!-- Google font -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
- 		<!-- Bootstrap -->
- 		<link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		
+		<!-- Font Awesome Icon -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
- 		<!-- Slick -->
- 		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
- 		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+		<!-- Slick -->
+		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
 
- 		<!-- nouislider -->
- 		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css"/>
+		<!-- nouislider -->
+		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css"/>
 
- 		<!-- Font Awesome Icon -->
- 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
- 		<!-- Custom stlylesheet -->
- 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+		<!-- Custom stlylesheet -->
+		<link type="text/css" rel="stylesheet" href="css/style.css"/>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,7 +49,8 @@
 					</ul>
 					<ul class="header-links pull-right">
 						<li><a href="javascript:void(0);"><i class="fa fa-dollar"></i> USD</a></li>
-						<li><a href="javascript:void(0);"><i class="fa fa-user-o"></i> My Account</a></li>
+						<li id="accountLink"><a href="login.html"><i class="fa fa-user-o"></i> My Account</a></li>
+						<li id="logoutLink" style="display: none;"><a href="javascript:void(0);" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
 					</ul>
 				</div>
 			</div>
@@ -76,8 +78,10 @@
 								<form>
 									<select class="input-select">
 										<option value="0">All Categories</option>
-										<option value="1">Category 01</option>
-										<option value="1">Category 02</option>
+										<option value="1">Smartphones</option>
+										<option value="2">Laptops</option>
+										<option value="3">Cameras</option>
+										<option value="4">Accessories</option>
 									</select>
 									<input class="input" placeholder="Search here">
 									<button class="search-btn">Search</button>
@@ -90,17 +94,28 @@
 						<div class="col-md-3 clearfix">
 							<div class="header-ctn">
 								<!-- Wishlist -->
-								<div id="wishlist-cta">
-									<a href="javascript:void(0);">
+								<div class="dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 										<i class="fa fa-heart-o"></i>
 										<span>Your Wishlist</span>
 										<div class="qty">0</div>
 									</a>
+									<div class="wishlist-dropdown">
+										<div class="wishlist-list">
+											<!-- Wishlist items will be inserted here by JavaScript -->
+										</div>
+										<div class="wishlist-summary">
+											<small>0 Item(s) in wishlist</small>
+										</div>
+										<div class="wishlist-btns">
+											<a href="./wishlist.html">View Wishlist</a>
+										</div>
+									</div>
 								</div>
 								<!-- /Wishlist -->
 
 								<!-- Cart -->
-								<div id="cart-cta" class="dropdown">
+								<div class="dropdown">
 									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 										<i class="fa fa-shopping-cart"></i>
 										<span>Your Cart</span>
@@ -108,13 +123,14 @@
 									</a>
 									<div class="cart-dropdown">
 										<div class="cart-list">
+											<!-- Cart items will be inserted here by JavaScript -->
 										</div>
 										<div class="cart-summary">
 											<small>0 Item(s) selected</small>
 											<h5>SUBTOTAL: $0.00</h5>
 										</div>
 										<div class="cart-btns">
-											<a href="./checkout.html">View Cart</a>
+											<a href="./cart.html">View Cart</a>
 											<a href="./checkout.html">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
 									</div>
@@ -153,10 +169,11 @@
 						<li><a href="./hot-deals.html">Hot Deals</a></li>
 						<li><a href="./categories.html">Categories</a></li>
 						<li><a href="./laptops.html">Laptops</a></li>
-						<li><a href="./store.html">Smartphones</a></li>
-						<li><a href="./store.html">Cameras</a></li>
-						<li><a href="./store.html">Accessories</a></li>
-						<li><a href="./contact.html">Contact Us</a></li>
+						<li><a href="./smartphones.html">Smartphones</a></li>
+						<li><a href="./cameras.html">Cameras</a></li>
+						<li><a href="./accessories.html">Accessories</a></li>
+						<li><a href="./recommendations-demo.html"><i class="fa fa-robot"></i> AI Recommendations</a></li>
+					<li><a href="./contact.html">Contact Us</a></li>
 					</ul>
 					<!-- /NAV -->
 				</div>
@@ -252,28 +269,28 @@
 								</label>
 								<div class="caption">
 									<div class="form-group">
-										<input class="input" type="text" name="first-name" placeholder="First Name">
+										<input class="input" type="text" name="shipping-first-name" placeholder="First Name">
 									</div>
 									<div class="form-group">
-										<input class="input" type="text" name="last-name" placeholder="Last Name">
+										<input class="input" type="text" name="shipping-last-name" placeholder="Last Name">
 									</div>
 									<div class="form-group">
-										<input class="input" type="email" name="email" placeholder="Email">
+										<input class="input" type="email" name="shipping-email" placeholder="Email">
 									</div>
 									<div class="form-group">
-										<input class="input" type="text" name="address" placeholder="Address">
+										<input class="input" type="text" name="shipping-address" placeholder="Address">
 									</div>
 									<div class="form-group">
-										<input class="input" type="text" name="city" placeholder="City">
+										<input class="input" type="text" name="shipping-city" placeholder="City">
 									</div>
 									<div class="form-group">
-										<input class="input" type="text" name="country" placeholder="Country">
+										<input class="input" type="text" name="shipping-country" placeholder="Country">
 									</div>
 									<div class="form-group">
-										<input class="input" type="text" name="zip-code" placeholder="ZIP Code">
+										<input class="input" type="text" name="shipping-zip-code" placeholder="ZIP Code">
 									</div>
 									<div class="form-group">
-										<input class="input" type="tel" name="tel" placeholder="Telephone">
+										<input class="input" type="tel" name="shipping-tel" placeholder="Telephone">
 									</div>
 								</div>
 							</div>
@@ -292,6 +309,7 @@
 						<div class="section-title text-center">
 							<h3 class="title">Your Order</h3>
 						</div>
+						
 						<div class="order-summary">
 							<div class="order-col">
 								<div><strong>PRODUCT</strong></div>
@@ -301,12 +319,20 @@
 								<!-- Order products will be inserted here by JavaScript -->
 							</div>
 							<div class="order-col">
-								<div>Shiping</div>
+								<div>Subtotal</div>
+								<div><strong id="subtotal">$0.00</strong></div>
+							</div>
+							<div class="order-col">
+								<div>Shipping</div>
 								<div><strong>FREE</strong></div>
 							</div>
 							<div class="order-col">
+								<div>Tax</div>
+								<div><strong id="tax">$0.00</strong></div>
+							</div>
+							<div class="order-col">
 								<div><strong>TOTAL</strong></div>
-								<div><strong class="order-total">$0.00</strong></div>
+								<div><strong class="order-total" id="order-total">$0.00</strong></div>
 							</div>
 						</div>
 						<div class="payment-method">
@@ -337,7 +363,52 @@
 									Paypal System
 								</label>
 								<div class="caption">
-									<p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
+									<p>Pay via PayPal; you can pay with your credit card if you don't have a PayPal account.</p>
+								</div>
+							</div>
+							<div class="input-radio">
+								<input type="radio" name="payment" id="payment-4">
+								<label for="payment-4">
+									<span></span>
+									Mobile Money Payment
+								</label>
+								<div class="caption">
+									<p>Pay securely using your mobile money account. Fast, convenient, and secure payment method.</p>
+									<div class="mobile-money-options">
+										<div class="mobile-money-provider">
+											<input type="radio" name="mobile-provider" id="mpesa" value="mpesa">
+											<label for="mpesa">
+												<span></span>
+												<i class="fa fa-mobile"></i> M-Pesa
+											</label>
+										</div>
+										<div class="mobile-money-provider">
+											<input type="radio" name="mobile-provider" id="airtel-money" value="airtel-money">
+											<label for="airtel-money">
+												<span></span>
+												<i class="fa fa-mobile"></i> Airtel Money
+											</label>
+										</div>
+										<div class="mobile-money-provider">
+											<input type="radio" name="mobile-provider" id="mtn-money" value="mtn-money">
+											<label for="mtn-money">
+												<span></span>
+												<i class="fa fa-mobile"></i> MTN Mobile Money
+											</label>
+										</div>
+										<div class="mobile-money-provider">
+											<input type="radio" name="mobile-provider" id="orange-money" value="orange-money">
+											<label for="orange-money">
+												<span></span>
+												<i class="fa fa-mobile"></i> Orange Money
+											</label>
+										</div>
+									</div>
+									<div class="mobile-number-input">
+										<label for="mobile-number">Mobile Number:</label>
+										<input type="tel" id="mobile-number" class="input" placeholder="Enter your mobile number">
+										<small>You will receive a payment prompt on your phone</small>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -420,9 +491,9 @@
 								<ul class="footer-links">
 									<li><a href="./hot-deals.html">Hot deals</a></li>
 									<li><a href="./laptops.html">Laptops</a></li>
-									<li><a href="./store.html">Smartphones</a></li>
-									<li><a href="./store.html">Cameras</a></li>
-									<li><a href="./store.html">Accessories</a></li>
+									<li><a href="./smartphones.html">Smartphones</a></li>
+									<li><a href="./cameras.html">Cameras</a></li>
+									<li><a href="./accessories.html">Accessories</a></li>
 								</ul>
 							</div>
 						</div>
@@ -446,8 +517,8 @@
 							<div class="footer">
 								<h3 class="footer-title">Service</h3>
 								<ul class="footer-links">
-									<li><a href="#">My Account</a></li>
-									<li><a href="./checkout.html">View Cart</a></li>
+									<li><a href="./my-account.html">My Account</a></li>
+									<li><a href="./cart.html">View Cart</a></li>
 									<li><a href="#">Wishlist</a></li>
 									<li><a href="#">Track My Order</a></li>
 									<li><a href="#">Help</a></li>
@@ -495,6 +566,98 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
 		<script src="js/jquery.zoom.min.js"></script>
 		<script src="js/main.js"></script>
+
+		<script>
+			$(document).ready(function() {
+				// Simple checkout functionality
+				loadCartData();
+				setupFormToggles();
+				
+				function loadCartData() {
+					const cart = JSON.parse(localStorage.getItem('cart')) || [];
+					if (cart.length === 0) {
+						$('.order-products').html('<p>Your cart is empty</p>');
+						return;
+					}
+					
+					let total = 0;
+					let html = '';
+					
+					cart.forEach(item => {
+						const itemTotal = item.price * item.quantity;
+						total += itemTotal;
+						html += `
+							<div class="order-col">
+								<div>${item.name} x ${item.quantity}</div>
+								<div>$${itemTotal.toFixed(2)}</div>
+							</div>
+						`;
+					});
+					
+					$('.order-products').html(html);
+					$('#subtotal').text(`$${total.toFixed(2)}`);
+					$('#tax').text(`$${(total * 0.08).toFixed(2)}`);
+					$('#order-total').text(`$${(total * 1.08).toFixed(2)}`);
+				}
+				
+				function setupFormToggles() {
+					$('#shiping-address').on('change', function() {
+						if ($(this).is(':checked')) {
+							$(this).closest('.input-checkbox').find('.caption').slideDown();
+						} else {
+							$(this).closest('.input-checkbox').find('.caption').slideUp();
+						}
+					});
+					
+					$('#create-account').on('change', function() {
+						if ($(this).is(':checked')) {
+							$(this).closest('.input-checkbox').find('.caption').slideDown();
+						} else {
+							$(this).closest('.input-checkbox').find('.caption').slideUp();
+						}
+					});
+				}
+			});
+		</script>
+
+		<!-- User Session Management -->
+		<script>
+			// Check user login status and update navigation
+			function checkUserSession() {
+				const user = JSON.parse(localStorage.getItem('user'));
+				const accountLink = document.getElementById('accountLink');
+				const logoutLink = document.getElementById('logoutLink');
+				
+				if (user) {
+					// User is logged in
+					accountLink.innerHTML = `<a href="profile.html"><i class="fa fa-user"></i> ${user.email.split('@')[0]}</a>`;
+					logoutLink.style.display = 'inline-block';
+				} else {
+					// User is not logged in
+					accountLink.innerHTML = `<a href="login.html"><i class="fa fa-user-o"></i> My Account</a>`;
+					logoutLink.style.display = 'none';
+				}
+			}
+
+			// Logout function
+			function logout() {
+				// Clear all session data
+				localStorage.removeItem('user');
+				localStorage.removeItem('cart');
+				localStorage.removeItem('wishlist');
+				
+				// Show logout message
+				alert('Logged out successfully!');
+				
+				// Redirect to login page
+				window.location.href = 'login.html';
+			}
+
+			// Initialize user session check
+			window.addEventListener('load', function() {
+				checkUserSession();
+			});
+		</script>
 
 	</body>
 </html>

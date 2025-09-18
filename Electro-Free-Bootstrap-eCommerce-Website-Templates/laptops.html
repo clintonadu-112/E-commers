@@ -8,24 +8,107 @@
 
 		<title>Electro - Laptops</title>
 
- 		<!-- Google font -->
- 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+		<!-- Google font -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
- 		<!-- Bootstrap -->
- 		<link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+		<!-- Bootstrap -->
+		<link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
 
- 		<!-- Slick -->
- 		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
- 		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+		<!-- Slick -->
+		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
 
- 		<!-- nouislider -->
- 		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css"/>
+		<!-- nouislider -->
+		<link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css"/>
 
- 		<!-- Font Awesome Icon -->
- 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<!-- Font Awesome Icon -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
- 		<!-- Custom stlylesheet -->
- 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+		<!-- Custom stlylesheet -->
+		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+
+		<!-- Custom Styles for "Lit" Hot Deals Section -->
+		<style>
+			@keyframes gradient-animation {
+				0% {
+					background-position: 0% 50%;
+				}
+				50% {
+					background-position: 100% 50%;
+				}
+				100% {
+					background-position: 0% 50%;
+				}
+			}
+
+			#hot-deal.section {
+				padding: 60px 0px;
+				margin: 30px 0px;
+				background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+				background-size: 400% 400%;
+				animation: gradient-animation 15s ease infinite;
+				border-radius: 8px;
+				box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+			}
+
+			.hot-deal {
+				text-align: center;
+				font-family: 'Poppins', sans-serif;
+			}
+			
+			.hot-deal .hot-deal-countdown > li {
+				background: rgba(0, 0, 0, 0.2);
+				border: 2px solid rgba(255, 255, 255, 0.3);
+				box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+				transition: all 0.3s ease;
+			}
+
+			.hot-deal .hot-deal-countdown > li:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+			}
+
+			.hot-deal .hot-deal-countdown > li > div h3 {
+				font-family: 'Poppins', sans-serif;
+				font-weight: 700;
+				color: #FFF;
+				text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+			}
+
+			.hot-deal .hot-deal-countdown > li > div span {
+				color: rgba(255, 255, 255, 0.8);
+				text-transform: uppercase;
+				font-size: 12px;
+			}
+			
+			.hot-deal .text-uppercase {
+				color: #FFF;
+				font-weight: 700;
+				text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+			}
+			
+			.hot-deal p {
+				color: rgba(255, 255, 255, 0.9);
+				font-size: 20px;
+				font-weight: 400;
+			}
+			
+			.hot-deal .primary-btn.cta-btn {
+				background-color: #FFF;
+				color: #e73c7e;
+				box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+				transition: all 0.3s ease;
+			}
+
+			.hot-deal .primary-btn.cta-btn:hover {
+				transform: translateY(-3px);
+				box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+				color: #FFF;
+				background-color: #e73c7e;
+			}
+
+		</style>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -47,8 +130,22 @@
 						<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-						<li><a href="javascript:void(0);"><i class="fa fa-dollar"></i> USD</a></li>
-						<li><a href="javascript:void(0);"><i class="fa fa-user-o"></i> My Account</a></li>
+						<li class="currency-selector">
+							<select class="currency-dropdown" onchange="changeCurrency(this.value)">
+								<option value="GHS" selected>₵ GHS</option>
+								<option value="USD">$ USD</option>
+								<option value="EUR">€ EUR</option>
+								<option value="GBP">£ GBP</option>
+								<option value="NGN">₦ NGN</option>
+								<option value="KES">KSh KES</option>
+								<option value="ZAR">R ZAR</option>
+								<option value="EGP">E£ EGP</option>
+								<option value="MAD">MAD</option>
+								<option value="TND">TND</option>
+							</select>
+						</li>
+						<li id="accountLink"><a href="login.html"><i class="fa fa-user-o"></i> My Account</a></li>
+						<li id="logoutLink" style="display: none;"><a href="javascript:void(0);" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
 					</ul>
 				</div>
 			</div>
@@ -76,8 +173,8 @@
 								<form>
 									<select class="input-select">
 										<option value="0">All Categories</option>
-										<option value="1">Laptops</option>
-										<option value="2">Smartphones</option>
+										<option value="1">Smartphones</option>
+										<option value="2">Laptops</option>
 										<option value="3">Cameras</option>
 										<option value="4">Accessories</option>
 									</select>
@@ -92,12 +189,23 @@
 						<div class="col-md-3 clearfix">
 							<div class="header-ctn">
 								<!-- Wishlist -->
-								<div>
-									<a href="javascript:void(0);">
+								<div class="dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 										<i class="fa fa-heart-o"></i>
 										<span>Your Wishlist</span>
 										<div class="qty">0</div>
 									</a>
+									<div class="wishlist-dropdown">
+										<div class="wishlist-list">
+											<!-- Wishlist items will be inserted here by JavaScript -->
+										</div>
+										<div class="wishlist-summary">
+											<small>0 Item(s) in wishlist</small>
+										</div>
+										<div class="wishlist-btns">
+											<a href="./wishlist.html">View Wishlist</a>
+										</div>
+									</div>
 								</div>
 								<!-- /Wishlist -->
 
@@ -114,10 +222,10 @@
 										</div>
 										<div class="cart-summary">
 											<small>0 Item(s) selected</small>
-											<h5>SUBTOTAL: $0.00</h5>
+											<h5>SUBTOTAL: ₵0.00</h5>
 										</div>
 										<div class="cart-btns">
-											<a href="./checkout.html">View Cart</a>
+											<a href="./cart.html">View Cart</a>
 											<a href="./checkout.html">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
 										</div>
 									</div>
@@ -155,12 +263,13 @@
 					<ul class="main-nav nav navbar-nav">
 						<li><a href="./index.html">Home</a></li>
 						<li><a href="./hot-deals.html">Hot Deals</a></li>
-					    <li><a href="./categories.html">Categories</a></li>
+						<li><a href="./categories.html">Categories</a></li>
 						<li class="active"><a href="./laptops.html">Laptops</a></li>
 						<li><a href="./smartphones.html">Smartphones</a></li>
 						<li><a href="./cameras.html">Cameras</a></li>
 						<li><a href="./accessories.html">Accessories</a></li>
-						<li><a href="./contact.html">Contact Us</a></li>
+						<li><a href="./recommendations-demo.html"><i class="fa fa-robot"></i> AI Recommendations</a></li>
+					<li><a href="./contact.html">Contact Us</a></li>
 					</ul>
 					<!-- /NAV -->
 				</div>
@@ -179,7 +288,7 @@
 					<div class="col-md-12">
 						<ul class="breadcrumb-tree">
 							<li><a href="./index.html">Home</a></li>
-							<li><a href="./categories.html">Categories</a></li>
+							<li><a href="./store.html">Store</a></li>
 							<li class="active">Laptops</li>
 						</ul>
 					</div>
@@ -207,8 +316,8 @@
 									<input type="checkbox" id="category-1" checked>
 									<label for="category-1">
 										<span></span>
-										Laptops
-										<small>(120)</small>
+										Gaming Laptops
+										<small>(45)</small>
 									</label>
 								</div>
 
@@ -216,8 +325,8 @@
 									<input type="checkbox" id="category-2">
 									<label for="category-2">
 										<span></span>
-										Smartphones
-										<small>(740)</small>
+										Business Laptops
+										<small>(32)</small>
 									</label>
 								</div>
 
@@ -225,8 +334,8 @@
 									<input type="checkbox" id="category-3">
 									<label for="category-3">
 										<span></span>
-										Cameras
-										<small>(1450)</small>
+										Student Laptops
+										<small>(28)</small>
 									</label>
 								</div>
 
@@ -234,8 +343,26 @@
 									<input type="checkbox" id="category-4">
 									<label for="category-4">
 										<span></span>
-										Accessories
-										<small>(578)</small>
+										Ultrabooks
+										<small>(15)</small>
+									</label>
+								</div>
+
+								<div class="input-checkbox">
+									<input type="checkbox" id="category-5">
+									<label for="category-5">
+										<span></span>
+										2-in-1 Laptops
+										<small>(18)</small>
+									</label>
+								</div>
+
+								<div class="input-checkbox">
+									<input type="checkbox" id="category-6">
+									<label for="category-6">
+										<span></span>
+										Workstation Laptops
+										<small>(12)</small>
 									</label>
 								</div>
 							</div>
@@ -270,24 +397,56 @@
 									<input type="checkbox" id="brand-1">
 									<label for="brand-1">
 										<span></span>
-										SAMSUNG
-										<small>(578)</small>
+										Apple
+										<small>(25)</small>
 									</label>
 								</div>
 								<div class="input-checkbox">
 									<input type="checkbox" id="brand-2">
 									<label for="brand-2">
 										<span></span>
-										LG
-										<small>(125)</small>
+										Dell
+										<small>(18)</small>
 									</label>
 								</div>
 								<div class="input-checkbox">
 									<input type="checkbox" id="brand-3">
 									<label for="brand-3">
 										<span></span>
-										SONY
-										<small>(755)</small>
+										HP
+										<small>(22)</small>
+									</label>
+								</div>
+								<div class="input-checkbox">
+									<input type="checkbox" id="brand-4">
+									<label for="brand-4">
+										<span></span>
+										Lenovo
+										<small>(20)</small>
+									</label>
+								</div>
+								<div class="input-checkbox">
+									<input type="checkbox" id="brand-5">
+									<label for="brand-5">
+										<span></span>
+										ASUS
+										<small>(15)</small>
+									</label>
+								</div>
+								<div class="input-checkbox">
+									<input type="checkbox" id="brand-6">
+									<label for="brand-6">
+										<span></span>
+										MSI
+										<small>(12)</small>
+									</label>
+								</div>
+								<div class="input-checkbox">
+									<input type="checkbox" id="brand-7">
+									<label for="brand-7">
+										<span></span>
+										Razer
+										<small>(8)</small>
 									</label>
 								</div>
 							</div>
@@ -299,23 +458,23 @@
 							<h3 class="aside-title">Top selling</h3>
 							<div class="product-widget">
 								<div class="product-img">
-									<img src="./img/product01.png" alt="Top Selling Product 1" onerror="this.onerror=null;this.src='https://placehold.co/60x60/E4E7ED/333333?text=Product';">
+									<img src="./img/macbook-pro.jpg" alt="MacBook Pro" onerror="this.onerror=null;this.src='https://placehold.co/60x60/E4E7ED/333333?text=MacBook';">
 								</div>
 								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="./product.html">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+									<p class="product-category">Laptops</p>
+									<h3 class="product-name"><a href="./product.html">MacBook Pro 16"</a></h3>
+									<h4 class="product-price">₵2499.00 <del class="product-old-price">₵2799.00</del></h4>
 								</div>
 							</div>
 
 							<div class="product-widget">
 								<div class="product-img">
-									<img src="./img/product02.png" alt="Top Selling Product 2" onerror="this.onerror=null;this.src='https://placehold.co/60x60/E4E7ED/333333?text=Product';">
+									<img src="./img/dell-laptop.jpg" alt="Dell XPS" onerror="this.onerror=null;this.src='https://placehold.co/60x60/E4E7ED/333333?text=Dell';">
 								</div>
 								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="./product.html">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+									<p class="product-category">Laptops</p>
+									<h3 class="product-name"><a href="./product.html">Dell XPS 15</a></h3>
+									<h4 class="product-price">₵1899.00 <del class="product-old-price">₵2099.00</del></h4>
 								</div>
 							</div>
 
@@ -368,16 +527,16 @@
 							<div class="col-md-4 col-xs-6">
 								<div class="product" data-product-id="laptop1">
 									<div class="product-img">
-										<img src="./img/product01.png" alt="Laptop Model 1" onerror="this.onerror=null;this.src='https://placehold.co/263x328/E4E7ED/333333?text=Laptop';">
+										<img src="./img/macbook-pro.jpg" alt="MacBook Pro" onerror="this.onerror=null;this.src='https://placehold.co/263x328/E4E7ED/333333?text=MacBook';">
 										<div class="product-label">
 											<span class="sale">-30%</span>
 											<span class="new">NEW</span>
 										</div>
 									</div>
 									<div class="product-body">
-										<p class="product-category">Laptop</p>
-										<h3 class="product-name"><a href="./product.html">Laptop Model 1</a></h3>
-										<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+										<p class="product-category">Laptops</p>
+										<h3 class="product-name"><a href="./product.html">MacBook Pro 16"</a></h3>
+										<h4 class="product-price">₵2499.00 <del class="product-old-price">₵2799.00</del></h4>
 										<div class="product-rating">
 											<i class="fa fa-star"></i>
 											<i class="fa fa-star"></i>
@@ -392,7 +551,7 @@
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+										<button class="add-to-cart-btn" onclick="addToCartHandler(event, 'laptop1')"><i class="fa fa-shopping-cart"></i> add to cart</button>
 									</div>
 								</div>
 							</div>
@@ -425,7 +584,7 @@
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+										<button class="add-to-cart-btn" onclick="addToCartHandler(event, 'laptop2')"><i class="fa fa-shopping-cart"></i> add to cart</button>
 									</div>
 								</div>
 							</div>
@@ -452,7 +611,7 @@
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+										<button class="add-to-cart-btn" onclick="addToCartHandler(event, 'laptop3')"><i class="fa fa-shopping-cart"></i> add to cart</button>
 									</div>
 								</div>
 							</div>
@@ -479,7 +638,7 @@
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+										<button class="add-to-cart-btn" onclick="addToCartHandler(event, 'laptop4')"><i class="fa fa-shopping-cart"></i> add to cart</button>
 									</div>
 								</div>
 							</div>
@@ -506,7 +665,7 @@
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+										<button class="add-to-cart-btn" onclick="addToCartHandler(event, 'laptop5')"><i class="fa fa-shopping-cart"></i> add to cart</button>
 									</div>
 								</div>
 							</div>
@@ -536,7 +695,7 @@
 										</div>
 									</div>
 									<div class="add-to-cart">
-										<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+										<button class="add-to-cart-btn" onclick="addToCartHandler(event, 'laptop6')"><i class="fa fa-shopping-cart"></i> add to cart</button>
 									</div>
 								</div>
 							</div>
@@ -625,11 +784,10 @@
 							<div class="footer">
 								<h3 class="footer-title">Categories</h3>
 								<ul class="footer-links">
-									<li><a href="./hot-deals.html">Hot deals</a></li>
 									<li><a href="./laptops.html">Laptops</a></li>
-									<li><a href="./store.html">Smartphones</a></li>
-									<li><a href="./store.html">Cameras</a></li>
-									<li><a href="./store.html">Accessories</a></li>
+									<li><a href="./smartphones.html">Smartphones</a></li>
+									<li><a href="./cameras.html">Cameras</a></li>
+									<li><a href="./accessories.html">Accessories</a></li>
 								</ul>
 							</div>
 						</div>
@@ -653,10 +811,9 @@
 							<div class="footer">
 								<h3 class="footer-title">Service</h3>
 								<ul class="footer-links">
-									<li><a href="#">My Account</a></li>
-									<li><a href="./checkout.html">View Cart</a></li>
-									<li><a href="#">Wishlist</a></li>
-									<li><a href="#">Track My Order</a></li>
+									<li><a href="./my-account.html">My Account</a></li>
+									<li><a href="./cart.html">View Cart</a></li>
+									<li><a href="./wishlist.html">Wishlist</a></li>
 									<li><a href="#">Help</a></li>
 								</ul>
 							</div>
@@ -702,6 +859,46 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
 		<script src="js/jquery.zoom.min.js"></script>
 		<script src="js/main.js"></script>
+		<script src="js/currency.js"></script>
+
+		<!-- User Session Management -->
+		<script>
+			// Check user login status and update navigation
+			function checkUserSession() {
+				const user = JSON.parse(localStorage.getItem('user'));
+				const accountLink = document.getElementById('accountLink');
+				const logoutLink = document.getElementById('logoutLink');
+				
+				if (user) {
+					// User is logged in
+					accountLink.innerHTML = `<a href="profile.html"><i class="fa fa-user"></i> ${user.email.split('@')[0]}</a>`;
+					logoutLink.style.display = 'inline-block';
+				} else {
+					// User is not logged in
+					accountLink.innerHTML = `<a href="login.html"><i class="fa fa-user-o"></i> My Account</a>`;
+					logoutLink.style.display = 'none';
+				}
+			}
+
+			// Logout function
+			function logout() {
+				// Clear all session data
+				localStorage.removeItem('user');
+				localStorage.removeItem('cart');
+				localStorage.removeItem('wishlist');
+				
+				// Show logout message
+				alert('Logged out successfully!');
+				
+				// Redirect to login page
+				window.location.href = 'login.html';
+			}
+
+			// Initialize user session check
+			window.addEventListener('load', function() {
+				checkUserSession();
+			});
+		</script>
 
 	</body>
 </html>

@@ -48,7 +48,8 @@
 					</ul>
 					<ul class="header-links pull-right">
 						<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-						<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+						<li id="accountLink"><a href="login.html"><i class="fa fa-user-o"></i> My Account</a></li>
+						<li id="logoutLink" style="display: none;"><a href="javascript:void(0);" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
 					</ul>
 				</div>
 			</div>
@@ -76,8 +77,10 @@
 								<form>
 									<select class="input-select">
 										<option value="0">All Categories</option>
-										<option value="1">Category 01</option>
-										<option value="1">Category 02</option>
+										<option value="1">Smartphones</option>
+										<option value="2">Laptops</option>
+										<option value="3">Cameras</option>
+										<option value="4">Accessories</option>
 									</select>
 									<input class="input" placeholder="Search here">
 									<button class="search-btn">Search</button>
@@ -290,11 +293,11 @@
 							<div class="footer">
 								<h3 class="footer-title">Categories</h3>
 								<ul class="footer-links">
-									<li><a href="./store.html">Hot deals</a></li>
-									<li><a href="./store.html">Laptops</a></li>
-									<li><a href="./store.html">Smartphones</a></li>
-									<li><a href="./store.html">Cameras</a></li>
-									<li><a href="./store.html">Accessories</a></li>
+									<li><a href="./hot-deals.html">Hot deals</a></li>
+									<li><a href="./laptops.html">Laptops</a></li>
+									<li><a href="./smartphones.html">Smartphones</a></li>
+															<li><a href="./cameras.html">Cameras</a></li>
+						<li><a href="./accessories.html">Accessories</a></li>
 								</ul>
 							</div>
 						</div>
@@ -306,7 +309,8 @@
 								<h3 class="footer-title">Information</h3>
 								<ul class="footer-links">
 									<li><a href="#">About Us</a></li>
-									<li><a href="./contact.html">Contact Us</a></li>
+									<li><a href="./recommendations-demo.html"><i class="fa fa-robot"></i> AI Recommendations</a></li>
+					<li><a href="./contact.html">Contact Us</a></li>
 									<li><a href="#">Privacy Policy</a></li>
 									<li><a href="#">Orders and Returns</a></li>
 									<li><a href="#">Terms & Conditions</a></li>
@@ -318,8 +322,8 @@
 							<div class="footer">
 								<h3 class="footer-title">Service</h3>
 								<ul class="footer-links">
-									<li><a href="#">My Account</a></li>
-									<li><a href="./checkout.html">View Cart</a></li>
+									<li><a href="./my-account.html">My Account</a></li>
+									<li><a href="./cart.html">View Cart</a></li>
 									<li><a href="#">Wishlist</a></li>
 									<li><a href="#">Track My Order</a></li>
 									<li><a href="#">Help</a></li>
@@ -363,12 +367,51 @@
 		<!-- /FOOTER -->
 
 		<!-- jQuery Plugins -->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/slick.min.js"></script>
-		<script src="js/nouislider.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js"></script>
 		<script src="js/jquery.zoom.min.js"></script>
 		<script src="js/main.js"></script>
+
+		<!-- User Session Management -->
+		<script>
+			// Check user login status and update navigation
+			function checkUserSession() {
+				const user = JSON.parse(localStorage.getItem('user'));
+				const accountLink = document.getElementById('accountLink');
+				const logoutLink = document.getElementById('logoutLink');
+				
+				if (user) {
+					// User is logged in
+					accountLink.innerHTML = `<a href="profile.html"><i class="fa fa-user"></i> ${user.email.split('@')[0]}</a>`;
+					logoutLink.style.display = 'inline-block';
+				} else {
+					// User is not logged in
+					accountLink.innerHTML = `<a href="login.html"><i class="fa fa-user-o"></i> My Account</a>`;
+					logoutLink.style.display = 'none';
+				}
+			}
+
+			// Logout function
+			function logout() {
+				// Clear all session data
+				localStorage.removeItem('user');
+				localStorage.removeItem('cart');
+				localStorage.removeItem('wishlist');
+				
+				// Show logout message
+				alert('Logged out successfully!');
+				
+				// Redirect to login page
+				window.location.href = 'login.html';
+			}
+
+			// Initialize user session check
+			window.addEventListener('load', function() {
+				checkUserSession();
+			});
+		</script>
 
 	</body>
 </html>

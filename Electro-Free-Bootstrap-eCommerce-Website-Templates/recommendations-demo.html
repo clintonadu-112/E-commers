@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Recommendations Demo - Electro</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+
+    <style>
+        .demo-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #FFF;
+            margin-bottom: 40px;
+        }
+
+        .demo-section h1 {
+            color: #FFF;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .demo-section p {
+            text-align: center;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .recommendation-type {
+            background: #FBFBFC;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .recommendation-type h3 {
+            color: #D10024;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .recommendation-type h3 i {
+            margin-right: 10px;
+            color: #667eea;
+        }
+
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #FFF;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .stats-card h4 {
+            color: #FFF;
+            margin-bottom: 10px;
+        }
+
+        .stats-card .number {
+            font-size: 36px;
+            font-weight: bold;
+            color: #FFD700;
+        }
+
+        .algorithm-explanation {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .algorithm-explanation h5 {
+            color: #D10024;
+            margin-bottom: 15px;
+        }
+
+        .algorithm-explanation ul {
+            padding-left: 20px;
+        }
+
+        .algorithm-explanation li {
+            margin-bottom: 8px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <!-- TOP HEADER -->
+        <div id="top-header">
+            <div class="container">
+                <ul class="header-links pull-left">
+                    <li><a href="tel:+021-95-51-84"><i class="fa fa-phone"></i> +021-95-51-84</a></li>
+                    <li><a href="mailto:email@email.com"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
+                    <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
+                </ul>
+                <ul class="header-links pull-right">
+                    <li><a href="javascript:void(0);"><i class="fa fa-dollar"></i> USD</a></li>
+                    <li><a href="login.html"><i class="fa fa-user-o"></i> My Account</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- /TOP HEADER -->
+
+        <!-- MAIN HEADER -->
+        <div id="header">
+            <div class="container">
+                <div class="row">
+                    <!-- LOGO -->
+                    <div class="col-md-3">
+                        <div class="header-logo">
+                            <a href="./index.html" class="logo">
+                                <img src="./img/logo.png" alt="Electro" onerror="this.onerror=null;this.src='https://placehold.co/150x50/D10024/FFFFFF?text=Electro';">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- /LOGO -->
+
+                    <!-- SEARCH BAR -->
+                    <div class="col-md-6">
+                        <div class="header-search">
+                            <form>
+                                <select class="input-select">
+                                    <option value="0">All Categories</option>
+                                    <option value="1">Smartphones</option>
+                                    <option value="2">Laptops</option>
+                                    <option value="3">Cameras</option>
+                                    <option value="4">Accessories</option>
+                                </select>
+                                <input class="input" placeholder="Search here">
+                                <button class="search-btn">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /SEARCH BAR -->
+
+                    <!-- ACCOUNT -->
+                    <div class="col-md-3 clearfix">
+                        <div class="header-ctn">
+                            <!-- Wishlist -->
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-heart-o"></i>
+                                    <span>Your Wishlist</span>
+                                    <div class="qty">0</div>
+                                </a>
+                                <div class="wishlist-dropdown">
+                                    <div class="wishlist-list">
+                                        <!-- Wishlist items will be inserted here by JavaScript -->
+                                    </div>
+                                    <div class="wishlist-summary">
+                                        <small>0 Item(s) in wishlist</small>
+                                    </div>
+                                    <div class="wishlist-btns">
+                                        <a href="./wishlist.html">View Wishlist</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Wishlist -->
+
+                            <!-- Cart -->
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>Your Cart</span>
+                                    <div class="qty">0</div>
+                                </a>
+                                <div class="cart-dropdown">
+                                    <div class="cart-list">
+                                        <!-- Cart items will be inserted here by JavaScript -->
+                                    </div>
+                                    <div class="cart-summary">
+                                        <small>0 Item(s) selected</small>
+                                        <h5>SUBTOTAL: $0.00</h5>
+                                    </div>
+                                    <div class="cart-btns">
+                                        <a href="./cart.html">View Cart</a>
+                                        <a href="./checkout.html">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Cart -->
+
+                            <!-- Menu Toogle -->
+                            <div class="menu-toggle">
+                                <a href="#">
+                                    <i class="fa fa-bars"></i>
+                                    <span>Menu</span>
+                                </a>
+                            </div>
+                            <!-- /Menu Toogle -->
+                        </div>
+                    </div>
+                    <!-- /ACCOUNT -->
+                </div>
+                <!-- row -->
+            </div>
+            <!-- container -->
+        </div>
+        <!-- /MAIN HEADER -->
+    </header>
+    <!-- /HEADER -->
+
+    <!-- NAVIGATION -->
+    <nav id="navigation">
+        <div class="container">
+            <div id="responsive-nav">
+                <ul class="main-nav nav navbar-nav">
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="./hot-deals.html">Hot Deals</a></li>
+                    <li><a href="./categories.html">Categories</a></li>
+                    <li><a href="./laptops.html">Laptops</a></li>
+                    <li><a href="./smartphones.html">Smartphones</a></li>
+                    <li><a href="./cameras.html">Cameras</a></li>
+                    <li><a href="./accessories.html">Accessories</a></li>
+                    <li><a href="./contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- /NAVIGATION -->
+
+    <!-- Demo Section -->
+    <div class="demo-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1><i class="fa fa-robot"></i> AI-Powered Recommendations Demo</h1>
+                    <p>Experience the future of eCommerce with our intelligent recommendation system</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="section">
+        <div class="container">
+            <!-- System Stats -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <h4><i class="fa fa-users"></i> Active Users</h4>
+                        <div class="number">1,247</div>
+                        <p>Tracking behavior</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <h4><i class="fa fa-shopping-cart"></i> Conversions</h4>
+                        <div class="number">23.4%</div>
+                        <p>From recommendations</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <h4><i class="fa fa-chart-line"></i> Revenue</h4>
+                        <div class="number">+18.7%</div>
+                        <p>Increase from AI</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <h4><i class="fa fa-star"></i> Satisfaction</h4>
+                        <div class="number">4.8/5</div>
+                        <p>User rating</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendation Types -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="recommendation-type">
+                        <h3><i class="fa fa-fire"></i> Trending Products</h3>
+                        <p>Based on real-time popularity, views, and sales data</p>
+                        <div id="trending-demo">
+                            <!-- Trending products will be loaded here -->
+                        </div>
+                        <div class="algorithm-explanation">
+                            <h5>How it works:</h5>
+                            <ul>
+                                <li>Analyzes product views and sales in real-time</li>
+                                <li>Considers seasonal trends and market demand</li>
+                                <li>Updates recommendations every hour</li>
+                                <li>Weights recent activity more heavily</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="recommendation-type">
+                        <h3><i class="fa fa-user"></i> Personalized Recommendations</h3>
+                        <p>Tailored to your browsing and purchase history</p>
+                        <div id="personalized-demo">
+                            <!-- Personalized products will be loaded here -->
+                        </div>
+                        <div class="algorithm-explanation">
+                            <h5>How it works:</h5>
+                            <ul>
+                                <li>Analyzes your purchase and browsing history</li>
+                                <li>Uses collaborative filtering to find similar users</li>
+                                <li>Considers your preferences and behavior patterns</li>
+                                <li>Learns from your interactions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="recommendation-type">
+                        <h3><i class="fa fa-shopping-bag"></i> Frequently Bought Together</h3>
+                        <p>Products that customers often purchase together</p>
+                        <div id="frequently-bought-demo">
+                            <!-- Frequently bought together will be loaded here -->
+                        </div>
+                        <div class="algorithm-explanation">
+                            <h5>How it works:</h5>
+                            <ul>
+                                <li>Analyzes purchase patterns across all users</li>
+                                <li>Identifies products commonly bought together</li>
+                                <li>Considers category and price relationships</li>
+                                <li>Updates based on new purchase data</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="recommendation-type">
+                        <h3><i class="fa fa-tags"></i> Content-Based Filtering</h3>
+                        <p>Similar products based on features and characteristics</p>
+                        <div id="content-based-demo">
+                            <!-- Content-based recommendations will be loaded here -->
+                        </div>
+                        <div class="algorithm-explanation">
+                            <h5>How it works:</h5>
+                            <ul>
+                                <li>Analyzes product tags, categories, and features</li>
+                                <li>Matches products with similar characteristics</li>
+                                <li>Considers price range and brand preferences</li>
+                                <li>Uses machine learning for feature extraction</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Insights Demo -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="recommendation-type">
+                        <h3><i class="fa fa-robot"></i> AI Insights & Analytics</h3>
+                        <p>Real-time insights about product performance and user behavior</p>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="ai-insights">
+                                    <h4><i class="fa fa-robot"></i> Live AI Insights</h4>
+                                    <div class="insight-item">
+                                        <i class="fa fa-thumbs-up"></i>
+                                        <p>98% of customers recommend this product category</p>
+                                    </div>
+                                    <div class="insight-item">
+                                        <i class="fa fa-chart-line"></i>
+                                        <p>Smartphone sales trending upward by 15% this week</p>
+                                    </div>
+                                    <div class="insight-item">
+                                        <i class="fa fa-users"></i>
+                                        <p>Users who viewed this also viewed: AirPods Pro (89% correlation)</p>
+                                    </div>
+                                    <div class="insight-item">
+                                        <i class="fa fa-star"></i>
+                                        <p>High customer satisfaction score: 4.8/5 based on 1,247 reviews</p>
+                                    </div>
+                                    <div class="insight-item">
+                                        <i class="fa fa-clock-o"></i>
+                                        <p>Peak shopping hours: 2-4 PM, 8-10 PM (recommendation timing optimized)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stats-card">
+                                    <h4><i class="fa fa-bullseye"></i> Recommendation Accuracy</h4>
+                                    <div class="number">94.2%</div>
+                                    <p>Click-through rate</p>
+                                </div>
+                                <div class="stats-card">
+                                    <h4><i class="fa fa-rocket"></i> Performance</h4>
+                                    <div class="number">2.3ms</div>
+                                    <p>Average response time</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test the System -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="recommendation-type">
+                        <h3><i class="fa fa-flask"></i> Test the Recommendation System</h3>
+                        <p>Interact with the system to see how it learns and adapts</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Simulate User Behavior:</h5>
+                                <button class="btn btn-primary" onclick="simulateView('iphone-15-pro')">
+                                    <i class="fa fa-eye"></i> View iPhone 15 Pro
+                                </button>
+                                <button class="btn btn-success" onclick="simulatePurchase('iphone-15-pro')">
+                                    <i class="fa fa-shopping-cart"></i> Purchase iPhone 15 Pro
+                                </button>
+                                <button class="btn btn-info" onclick="simulateWishlist('macbook-pro')">
+                                    <i class="fa fa-heart"></i> Add MacBook Pro to Wishlist
+                                </button>
+                                <button class="btn btn-warning" onclick="simulateRating('airpods-pro', 5)">
+                                    <i class="fa fa-star"></i> Rate AirPods Pro 5 Stars
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Current User Profile:</h5>
+                                <div id="user-profile">
+                                    <p><strong>User ID:</strong> <span id="user-id">Loading...</span></p>
+                                    <p><strong>Products Viewed:</strong> <span id="views-count">0</span></p>
+                                    <p><strong>Products Purchased:</strong> <span id="purchases-count">0</span></p>
+                                    <p><strong>Wishlist Items:</strong> <span id="wishlist-count">0</span></p>
+                                    <p><strong>Average Rating Given:</strong> <span id="avg-rating">0</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="footer">
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p>&copy; 2024 Electro. AI-Powered eCommerce Recommendations Demo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery Plugins -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/recommendations.js"></script>
+
+    <script>
+        // Demo functionality
+        function simulateView(productId) {
+            if (window.recommendationEngine) {
+                window.recommendationEngine.trackUserBehavior('view', productId);
+                updateUserProfile();
+                showNotification('Product view tracked: ' + productId, 'info');
+            }
+        }
+
+        function simulatePurchase(productId) {
+            if (window.recommendationEngine) {
+                window.recommendationEngine.trackUserBehavior('purchase', productId, {
+                    quantity: 1,
+                    price: 999.00
+                });
+                updateUserProfile();
+                showNotification('Purchase tracked: ' + productId, 'success');
+            }
+        }
+
+        function simulateWishlist(productId) {
+            if (window.recommendationEngine) {
+                window.recommendationEngine.trackUserBehavior('wishlist', productId);
+                updateUserProfile();
+                showNotification('Added to wishlist: ' + productId, 'info');
+            }
+        }
+
+        function simulateRating(productId, rating) {
+            if (window.recommendationEngine) {
+                window.recommendationEngine.trackUserBehavior('rating', productId, { rating });
+                updateUserProfile();
+                showNotification('Rating submitted: ' + rating + ' stars for ' + productId, 'success');
+            }
+        }
+
+        function updateUserProfile() {
+            if (window.recommendationEngine) {
+                const userId = window.recommendationEngine.getUserId();
+                const userBehavior = window.recommendationEngine.userBehavior[userId];
+                
+                if (userBehavior) {
+                    document.getElementById('user-id').textContent = userId;
+                    document.getElementById('views-count').textContent = userBehavior.views.length;
+                    document.getElementById('purchases-count').textContent = userBehavior.purchases.length;
+                    document.getElementById('wishlist-count').textContent = userBehavior.wishlist.length;
+                    
+                    const avgRating = userBehavior.ratings.length > 0 
+                        ? (userBehavior.ratings.reduce((sum, r) => sum + r.rating, 0) / userBehavior.ratings.length).toFixed(1)
+                        : '0';
+                    document.getElementById('avg-rating').textContent = avgRating;
+                }
+            }
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'success' ? 'success' : 'info'}`;
+            notification.style.position = 'fixed';
+            notification.style.top = '20px';
+            notification.style.right = '20px';
+            notification.style.zIndex = '9999';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Initialize demo
+        document.addEventListener('DOMContentLoaded', function() {
+            updateUserProfile();
+            
+            // Load demo recommendations
+            if (window.recommendationEngine) {
+                const trending = window.recommendationEngine.getTrendingProducts(2);
+                const personalized = window.recommendationEngine.getPersonalizedRecommendations(window.recommendationEngine.getUserId(), 2);
+                const frequentlyBought = window.recommendationEngine.getFrequentlyBoughtTogether('iphone-15-pro', 2);
+                const contentBased = window.recommendationEngine.getContentBasedRecommendations('iphone-15-pro', 2);
+
+                // Display demo recommendations
+                document.getElementById('trending-demo').innerHTML = window.recommendationEngine.generateRecommendationHTML(trending, '', 'trending');
+                document.getElementById('personalized-demo').innerHTML = window.recommendationEngine.generateRecommendationHTML(personalized, '', 'personalized');
+                document.getElementById('frequently-bought-demo').innerHTML = window.recommendationEngine.generateRecommendationHTML(frequentlyBought, '', 'frequently_bought');
+                document.getElementById('content-based-demo').innerHTML = window.recommendationEngine.generateRecommendationHTML(contentBased, '', 'content_based');
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Admin Panel - Electro</title>
+
+		<!-- Google font -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		
+		<!-- Font Awesome Icon -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<!-- Fallback Font Awesome -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v4.7.0/css/all.css">
+
+		<!-- Custom stlylesheet -->
+		<link type="text/css" rel="stylesheet" href="css/style.css"/>
+
+		<style>
+			.admin-container {
+				display: flex;
+				min-height: 100vh;
+			}
+
+			.sidebar {
+				width: 250px;
+				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+				color: white;
+				position: fixed;
+				height: 100vh;
+				overflow-y: auto;
+				z-index: 1000;
+			}
+
+			.sidebar-header {
+				padding: 20px;
+				text-align: center;
+				border-bottom: 1px solid rgba(255,255,255,0.1);
+			}
+
+			.sidebar-header h3 {
+				margin: 0;
+				font-weight: 700;
+			}
+
+			.sidebar-menu {
+				padding: 20px 0;
+			}
+
+			.menu-item {
+				padding: 15px 20px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				border-left: 3px solid transparent;
+			}
+
+			.menu-item:hover {
+				background: rgba(255,255,255,0.1);
+				border-left-color: white;
+			}
+
+			.menu-item.active {
+				background: rgba(255,255,255,0.2);
+				border-left-color: white;
+			}
+
+			.menu-item i {
+				margin-right: 10px;
+				width: 20px;
+			}
+
+			.main-content {
+				flex: 1;
+				margin-left: 250px;
+				background: #f8f9fa;
+			}
+
+			.top-bar {
+				background: white;
+				padding: 15px 30px;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			.admin-info {
+				display: flex;
+				align-items: center;
+			}
+
+			.admin-avatar {
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+				background: linear-gradient(45deg, #667eea, #764ba2);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				margin-right: 15px;
+				color: white;
+			}
+
+			.content-area {
+				padding: 30px;
+			}
+
+			.dashboard-stats {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 20px;
+				margin-bottom: 30px;
+			}
+
+			.stat-card {
+				background: white;
+				padding: 25px;
+				border-radius: 10px;
+				box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+				transition: transform 0.3s ease;
+			}
+
+			.stat-card:hover {
+				transform: translateY(-5px);
+			}
+
+			.stat-icon {
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 24px;
+				color: white;
+				margin-bottom: 15px;
+			}
+
+			.stat-users { background: linear-gradient(45deg, #667eea, #764ba2); }
+			.stat-orders { background: linear-gradient(45deg, #f093fb, #f5576c); }
+			.stat-revenue { background: linear-gradient(45deg, #4facfe, #00f2fe); }
+			.stat-products { background: linear-gradient(45deg, #43e97b, #38f9d7); }
+
+			.stat-number {
+				font-size: 32px;
+				font-weight: 700;
+				margin-bottom: 5px;
+			}
+
+			.stat-label {
+				color: #666;
+				font-size: 14px;
+			}
+
+			.content-section {
+				background: white;
+				border-radius: 10px;
+				box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+				margin-bottom: 30px;
+				overflow: hidden;
+			}
+
+			.section-header {
+				padding: 20px 25px;
+				background: #f8f9fa;
+				border-bottom: 1px solid #e1e5e9;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			.section-title {
+				margin: 0;
+				font-weight: 600;
+				color: #333;
+			}
+
+			.header-buttons {
+				display: flex;
+				gap: 10px;
+				align-items: center;
+			}
+
+			.btn-refresh {
+				background: #17a2b8;
+				color: white;
+				border: none;
+				padding: 8px 15px;
+				border-radius: 5px;
+				font-size: 14px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+			}
+
+			.btn-refresh:hover {
+				background: #138496;
+				transform: translateY(-2px);
+			}
+
+			.live-indicator {
+				color: #28a745;
+				font-size: 12px;
+				font-weight: normal;
+				animation: pulse 2s infinite;
+			}
+
+			@keyframes pulse {
+				0% { opacity: 1; }
+				50% { opacity: 0.5; }
+				100% { opacity: 1; }
+			}
+
+			.btn-add {
+				background: linear-gradient(45deg, #667eea, #764ba2);
+				border: none;
+				color: white;
+				padding: 8px 15px;
+				border-radius: 5px;
+				font-size: 14px;
+				cursor: pointer;
+				transition: all 0.3s ease;
+			}
+
+			.btn-add:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+			}
+
+			.table-container {
+				padding: 0;
+			}
+
+			.admin-table {
+				width: 100%;
+				border-collapse: collapse;
+			}
+
+			.admin-table th {
+				background: #f8f9fa;
+				padding: 15px;
+				text-align: left;
+				font-weight: 600;
+				color: #333;
+				border-bottom: 1px solid #e1e5e9;
+			}
+
+			.admin-table td {
+				padding: 15px;
+				border-bottom: 1px solid #e1e5e9;
+			}
+
+			.admin-table tr:hover {
+				background: #f8f9fa;
+			}
+
+			.status-badge {
+				padding: 5px 12px;
+				border-radius: 20px;
+				font-size: 12px;
+				font-weight: 600;
+				text-transform: uppercase;
+			}
+
+			.status-active { background: #d4edda; color: #155724; }
+			.status-pending { background: #fff3cd; color: #856404; }
+			.status-shipped { background: #cce5ff; color: #004085; }
+			.status-delivered { background: #d1ecf1; color: #0c5460; }
+
+			.action-buttons {
+				display: flex;
+				gap: 5px;
+			}
+
+			.btn-edit, .btn-delete {
+				padding: 5px 10px;
+				border: none;
+				border-radius: 3px;
+				cursor: pointer;
+				font-size: 12px;
+				transition: all 0.3s ease;
+			}
+
+			.btn-edit {
+				background: #28a745;
+				color: white;
+			}
+
+			.btn-delete {
+				background: #dc3545;
+				color: white;
+			}
+
+			.btn-edit:hover, .btn-delete:hover {
+				transform: translateY(-1px);
+			}
+
+			.alert {
+				border-radius: 8px;
+				margin-bottom: 20px;
+			}
+
+			.modal-content {
+				border-radius: 10px;
+			}
+
+			.modal-header {
+				background: linear-gradient(45deg, #667eea, #764ba2);
+				color: white;
+				border-radius: 10px 10px 0 0;
+			}
+
+			.form-control {
+				border: 2px solid #e1e5e9;
+				border-radius: 8px;
+				padding: 12px 15px;
+				font-size: 16px;
+				transition: all 0.3s ease;
+			}
+
+			.form-control:focus {
+				border-color: #667eea;
+				box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+			}
+
+			/* Icon fallbacks */
+			.fa {
+				display: inline-block;
+				font: normal normal normal 14px/1 FontAwesome;
+				font-size: inherit;
+				text-rendering: auto;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+			}
+
+			/* Ensure icons are visible */
+			.menu-item i,
+			.stat-icon i,
+			.btn i {
+				margin-right: 8px;
+			}
+
+			@media (max-width: 768px) {
+				.sidebar {
+					transform: translateX(-100%);
+					transition: transform 0.3s ease;
+				}
+
+				.sidebar.open {
+					transform: translateX(0);
+				}
+
+				.main-content {
+					margin-left: 0;
+				}
+
+				.dashboard-stats {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="admin-container">
+			<!-- Sidebar -->
+			<div class="sidebar" id="sidebar">
+				<div class="sidebar-header">
+					<h3><i class="fa fa-cogs"></i> Admin Panel</h3>
+				</div>
+				<div class="sidebar-menu">
+					<div class="menu-item active" onclick="showSection('dashboard')">
+						<i class="fa fa-tachometer"></i> Dashboard
+					</div>
+					<div class="menu-item" onclick="showSection('users')">
+						<i class="fa fa-users"></i> Users
+					</div>
+					<div class="menu-item" onclick="showSection('products')">
+						<i class="fa fa-cube"></i> Products
+					</div>
+					<div class="menu-item" onclick="showSection('orders')">
+						<i class="fa fa-shopping-cart"></i> Orders
+					</div>
+					<div class="menu-item" onclick="showSection('analytics')">
+						<i class="fa fa-bar-chart"></i> Analytics
+					</div>
+					<div class="menu-item" onclick="showSection('settings')">
+						<i class="fa fa-cog"></i> Settings
+					</div>
+					<div class="menu-item" onclick="logout()">
+						<i class="fa fa-power-off"></i> Logout
+					</div>
+				</div>
+			</div>
+
+			<!-- Main Content -->
+			<div class="main-content">
+				<!-- Top Bar -->
+				<div class="top-bar">
+					<div class="admin-info">
+						<div class="admin-avatar">
+							<i class="fa fa-user"></i>
+						</div>
+						<div>
+							<h5 style="margin: 0;" id="adminName">Admin User</h5>
+							<small style="color: #666;" id="adminEmail">admin@electro.com</small>
+						</div>
+					</div>
+					<div>
+						<button class="btn btn-default" onclick="toggleSidebar()">
+							<i class="fa fa-bars"></i>
+						</button>
+					</div>
+				</div>
+
+				<!-- Content Area -->
+				<div class="content-area">
+					<div id="alert-container"></div>
+
+					<!-- Dashboard Section -->
+					<div id="dashboard" class="content-section">
+						<div class="dashboard-stats">
+							<div class="stat-card">
+								<div class="stat-icon stat-users">
+									<i class="fa fa-users"></i>
+								</div>
+								<div class="stat-number" id="totalUsers">0</div>
+								<div class="stat-label">Total Users</div>
+							</div>
+							<div class="stat-card">
+								<div class="stat-icon stat-orders">
+									<i class="fa fa-shopping-cart"></i>
+								</div>
+								<div class="stat-number" id="totalOrders">0</div>
+								<div class="stat-label">Total Orders</div>
+							</div>
+							<div class="stat-card">
+								<div class="stat-icon stat-revenue">
+									<i class="fa fa-dollar"></i>
+								</div>
+								<div class="stat-number" id="totalRevenue">$0</div>
+								<div class="stat-label">Total Revenue</div>
+							</div>
+							<div class="stat-card">
+								<div class="stat-icon stat-products">
+									<i class="fa fa-cube"></i>
+								</div>
+								<div class="stat-number" id="totalProducts">0</div>
+								<div class="stat-label">Total Products</div>
+							</div>
+						</div>
+
+											<div class="content-section">
+						<div class="section-header">
+							<h4 class="section-title">Recent Activity <span class="live-indicator">● LIVE</span></h4>
+							<button class="btn-refresh" onclick="refreshDashboard()">
+								<i class="fa fa-repeat"></i> Refresh
+							</button>
+						</div>
+							<div class="table-container">
+								<table class="admin-table">
+									<thead>
+										<tr>
+											<th>Activity</th>
+											<th>User</th>
+											<th>Time</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody id="recentActivity">
+										<!-- Activity data will be loaded here -->
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<!-- Users Section -->
+					<div id="users" class="content-section" style="display: none;">
+						<div class="section-header">
+							<h4 class="section-title">User Management</h4>
+							<div class="header-buttons">
+								<button class="btn-refresh" onclick="refreshUsers()">
+									<i class="fa fa-repeat"></i> Refresh
+								</button>
+								<button class="btn-add" onclick="showAddUserModal()">
+									<i class="fa fa-plus"></i> Add User
+								</button>
+							</div>
+						</div>
+						<div class="table-container">
+							<table class="admin-table">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Email</th>
+										<th>Role</th>
+										<th>Status</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody id="usersTable">
+									<!-- Users data will be loaded here -->
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!-- Products Section -->
+					<div id="products" class="content-section" style="display: none;">
+						<div class="section-header">
+							<h4 class="section-title">Product Management</h4>
+							<button class="btn-add" onclick="showAddProductModal()">
+								<i class="fa fa-plus"></i> Add Product
+							</button>
+						</div>
+						<div class="table-container">
+							<table class="admin-table">
+								<thead>
+									<tr>
+										<th>Product</th>
+										<th>Category</th>
+										<th>Price</th>
+										<th>Stock</th>
+										<th>Status</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody id="productsTable">
+									<!-- Products data will be loaded here -->
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!-- Orders Section -->
+					<div id="orders" class="content-section" style="display: none;">
+						<div class="section-header">
+							<h4 class="section-title">Order Management</h4>
+						</div>
+						<div class="table-container">
+							<table class="admin-table">
+								<thead>
+									<tr>
+										<th>Order ID</th>
+										<th>Customer</th>
+										<th>Products</th>
+										<th>Total</th>
+										<th>Status</th>
+										<th>Date</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody id="ordersTable">
+									<!-- Orders data will be loaded here -->
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!-- Analytics Section -->
+					<div id="analytics" class="content-section" style="display: none;">
+						<div class="section-header">
+							<h4 class="section-title">Analytics Dashboard</h4>
+						</div>
+						<div style="padding: 20px;">
+							<div class="row">
+								<div class="col-md-6">
+									<h5>Sales Overview</h5>
+									<div style="background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center;">
+										<h3>$12,450</h3>
+										<p>This Month's Revenue</p>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<h5>Top Products</h5>
+									<div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
+										<ul style="list-style: none; padding: 0;">
+											<li>iPhone 15 Pro - 45 units</li>
+											<li>MacBook Air - 32 units</li>
+											<li>AirPods Pro - 28 units</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Settings Section -->
+					<div id="settings" class="content-section" style="display: none;">
+						<div class="section-header">
+							<h4 class="section-title">System Settings</h4>
+						</div>
+						<div style="padding: 20px;">
+							<div class="row">
+								<div class="col-md-6">
+									<h5>General Settings</h5>
+									<div class="form-group">
+										<label>Site Name</label>
+										<input type="text" class="form-control" value="Electro Store">
+									</div>
+									<div class="form-group">
+										<label>Contact Email</label>
+										<input type="email" class="form-control" value="admin@electro.com">
+									</div>
+									<div class="form-group">
+										<label>Currency</label>
+										<select class="form-control">
+											<option>USD</option>
+											<option>EUR</option>
+											<option>GBP</option>
+										</select>
+									</div>
+									<button class="btn btn-primary">Save Settings</button>
+								</div>
+								<div class="col-md-6">
+									<h5>Security Settings</h5>
+									<div class="form-group">
+										<label>Session Timeout (minutes)</label>
+										<input type="number" class="form-control" value="30">
+									</div>
+									<div class="form-group">
+										<label>Password Policy</label>
+										<select class="form-control">
+											<option>Strong</option>
+											<option>Medium</option>
+											<option>Weak</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label>
+											<input type="checkbox" checked> Enable Two-Factor Authentication
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- jQuery -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		
+		<!-- Bootstrap -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+		<script>
+			// Real data functions
+			function getRealUsers() {
+				const users = JSON.parse(localStorage.getItem('users') || '[]');
+				return users.map((user, index) => ({
+					id: index + 1,
+					name: `${user.firstName} ${user.lastName}`,
+					email: user.email,
+					role: user.role,
+					status: 'active',
+					createdAt: user.createdAt
+				}));
+			}
+
+			function getRealOrders() {
+				const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+				const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+				
+				// Convert cart items to orders if they exist
+				if (cart.length > 0) {
+					const cartOrder = {
+						id: 'CART001',
+						customer: 'Current Cart',
+						products: cart.map(item => item.name).join(', '),
+						total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+						status: 'pending',
+						date: new Date().toISOString().split('T')[0]
+					};
+					orders.unshift(cartOrder);
+				}
+				
+				return orders;
+			}
+
+			function getRealProducts() {
+				// Get products from localStorage
+				let products = JSON.parse(localStorage.getItem('products') || '[]');
+				
+				// If no products exist, initialize with demo products
+				if (products.length === 0) {
+					products = [
+						{ id: 1, name: 'iPhone 15 Pro', category: 'Smartphones', price: 999, stock: 45, status: 'active' },
+						{ id: 2, name: 'MacBook Air', category: 'Laptops', price: 1199, stock: 32, status: 'active' },
+						{ id: 3, name: 'AirPods Pro', category: 'Accessories', price: 249, stock: 78, status: 'active' },
+						{ id: 4, name: 'Samsung Galaxy', category: 'Smartphones', price: 799, stock: 0, status: 'inactive' }
+					];
+					localStorage.setItem('products', JSON.stringify(products));
+				}
+				
+				return products;
+			}
+
+			function getRecentActivity() {
+				const activities = JSON.parse(localStorage.getItem('adminActivity') || '[]');
+				const users = getRealUsers();
+				
+				// Add user registration activities
+				users.forEach(user => {
+					const userDate = new Date(user.createdAt);
+					const timeAgo = getTimeAgo(userDate);
+					activities.push({
+						activity: 'New user registered',
+						user: user.email,
+						time: timeAgo,
+						status: 'completed'
+					});
+				});
+				
+				// Sort by time (most recent first)
+				return activities.sort((a, b) => new Date(b.time) - new Date(a.time)).slice(0, 10);
+			}
+
+			function getTimeAgo(date) {
+				const now = new Date();
+				const diffInSeconds = Math.floor((now - date) / 1000);
+				
+				if (diffInSeconds < 60) return 'Just now';
+				if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} minutes ago`;
+				if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hours ago`;
+				return `${Math.floor(diffInSeconds / 86400)} days ago`;
+			}
+
+			// Check for new activities and show notifications
+			function checkForNewActivities() {
+				const activities = JSON.parse(localStorage.getItem('adminActivity') || '[]');
+				const lastCheck = localStorage.getItem('lastActivityCheck') || '0';
+				const lastCheckTime = new Date(parseInt(lastCheck));
+				
+				const newActivities = activities.filter(activity => {
+					const activityTime = new Date(activity.time);
+					return activityTime > lastCheckTime;
+				});
+				
+				if (newActivities.length > 0) {
+					showAlert(`New activity detected: ${newActivities.length} new event(s)!`, 'success');
+					localStorage.setItem('lastActivityCheck', Date.now().toString());
+				}
+			}
+
+			function showAlert(message, type = 'info') {
+				const alertContainer = document.getElementById('alert-container');
+				const alertClass = type === 'error' ? 'alert-danger' : type === 'success' ? 'alert-success' : 'alert-info';
+				
+				alertContainer.innerHTML = `
+					<div class="alert ${alertClass} alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert">&times;</button>
+						${message}
+					</div>
+				`;
+			}
+
+			function checkAdminAccess() {
+				const user = JSON.parse(localStorage.getItem('user'));
+				if (!user || user.role !== 'admin') {
+					showAlert('Access denied. Admin privileges required.', 'error');
+					setTimeout(() => {
+						window.location.href = 'login.html';
+					}, 2000);
+					return false;
+				}
+				return true;
+			}
+
+			function loadDashboard() {
+				const realUsers = getRealUsers();
+				const realOrders = getRealOrders();
+				const realProducts = getRealProducts();
+				const realActivity = getRecentActivity();
+
+				document.getElementById('totalUsers').textContent = realUsers.length;
+				document.getElementById('totalOrders').textContent = realOrders.length;
+				document.getElementById('totalRevenue').textContent = '$' + realOrders.reduce((sum, order) => sum + order.total, 0);
+				document.getElementById('totalProducts').textContent = realProducts.length;
+
+				// Load recent activity
+				const activityTable = document.getElementById('recentActivity');
+				activityTable.innerHTML = realActivity.map(activity => `
+					<tr>
+						<td>${activity.activity}</td>
+						<td>${activity.user}</td>
+						<td>${activity.time}</td>
+						<td><span class="status-badge status-${activity.status === 'completed' ? 'active' : 'pending'}">${activity.status}</span></td>
+					</tr>
+				`).join('');
+			}
+
+			function loadUsers() {
+				const realUsers = getRealUsers();
+				const usersTable = document.getElementById('usersTable');
+				usersTable.innerHTML = realUsers.map(user => `
+					<tr>
+						<td>${user.name}</td>
+						<td>${user.email}</td>
+						<td><span class="status-badge ${user.role === 'admin' ? 'status-active' : 'status-pending'}">${user.role}</span></td>
+						<td><span class="status-badge status-${user.status}">${user.status}</span></td>
+						<td>
+							<div class="action-buttons">
+								<button class="btn-edit" onclick="editUser(${user.id})">Edit</button>
+								${user.role === 'admin' ? 
+									'<button class="btn-delete" disabled style="opacity: 0.5; cursor: not-allowed;" title="Cannot delete admin user">Delete</button>' : 
+									`<button class="btn-delete" onclick="deleteUser(${user.id})">Delete</button>`
+								}
+							</div>
+						</td>
+					</tr>
+				`).join('');
+			}
+
+			function loadProducts() {
+				const realProducts = getRealProducts();
+				const productsTable = document.getElementById('productsTable');
+				productsTable.innerHTML = realProducts.map(product => `
+					<tr>
+						<td>${product.name}</td>
+						<td>${product.category}</td>
+						<td>$${product.price}</td>
+						<td>${product.stock}</td>
+						<td><span class="status-badge status-${product.status}">${product.status}</span></td>
+						<td>
+							<div class="action-buttons">
+								<button class="btn-edit" onclick="editProduct(${product.id})">Edit</button>
+								<button class="btn-delete" onclick="deleteProduct(${product.id})">Delete</button>
+							</div>
+						</td>
+					</tr>
+				`).join('');
+			}
+
+			function loadOrders() {
+				const realOrders = getRealOrders();
+				const ordersTable = document.getElementById('ordersTable');
+				ordersTable.innerHTML = realOrders.map(order => `
+					<tr>
+						<td>${order.id}</td>
+						<td>${order.customer}</td>
+						<td>${order.products}</td>
+						<td>$${order.total}</td>
+						<td><span class="status-badge status-${order.status}">${order.status}</span></td>
+						<td>${order.date}</td>
+						<td>
+							<div class="action-buttons">
+								<button class="btn-edit" onclick="editOrder('${order.id}')">View</button>
+								<button class="btn-delete" onclick="deleteOrder('${order.id}')">Delete</button>
+							</div>
+						</td>
+					</tr>
+				`).join('');
+			}
+
+			function showSection(sectionName) {
+				// Hide all sections
+				document.querySelectorAll('.content-section').forEach(section => {
+					section.style.display = 'none';
+				});
+
+				// Show selected section
+				document.getElementById(sectionName).style.display = 'block';
+
+				// Update active menu item
+				document.querySelectorAll('.menu-item').forEach(item => {
+					item.classList.remove('active');
+				});
+				event.target.classList.add('active');
+
+				// Load section data
+				switch(sectionName) {
+					case 'dashboard':
+						loadDashboard();
+						break;
+					case 'users':
+						loadUsers();
+						break;
+					case 'products':
+						loadProducts();
+						break;
+					case 'orders':
+						loadOrders();
+						break;
+				}
+			}
+
+			function toggleSidebar() {
+				const sidebar = document.getElementById('sidebar');
+				sidebar.classList.toggle('open');
+			}
+
+			function showAddUserModal() {
+				alert('Add User Modal - This would open a modal to add new users in a real application.');
+			}
+
+			function showAddProductModal() {
+				alert('Add Product Modal - This would open a modal to add new products in a real application.');
+			}
+
+			function editUser(id) {
+				alert(`Edit User ${id} - This would open an edit modal in a real application.`);
+			}
+
+			function deleteUser(id) {
+				if (confirm('Are you sure you want to delete this user?')) {
+					// Get current users from localStorage
+					const users = JSON.parse(localStorage.getItem('users') || '[]');
+					
+					// Remove user by index (id is 1-based, so subtract 1)
+					const userIndex = id - 1;
+					if (userIndex >= 0 && userIndex < users.length) {
+						const deletedUser = users[userIndex];
+						
+						// Prevent deleting admin user
+						if (deletedUser.role === 'admin') {
+							showAlert('Cannot delete admin user for security reasons', 'error');
+							return;
+						}
+						
+						users.splice(userIndex, 1);
+						
+						// Update localStorage
+						localStorage.setItem('users', JSON.stringify(users));
+						
+						// Log admin activity
+						const adminActivity = JSON.parse(localStorage.getItem('adminActivity') || '[]');
+						adminActivity.push({
+							activity: 'User deleted',
+							user: deletedUser.email,
+							time: new Date().toISOString(),
+							status: 'completed'
+						});
+						localStorage.setItem('adminActivity', JSON.stringify(adminActivity));
+						
+						showAlert(`User ${deletedUser.email} deleted successfully`, 'success');
+						loadUsers();
+					} else {
+						showAlert('User not found', 'error');
+					}
+				}
+			}
+
+			function editProduct(id) {
+				alert(`Edit Product ${id} - This would open an edit modal in a real application.`);
+			}
+
+			function deleteProduct(id) {
+				if (confirm('Are you sure you want to delete this product?')) {
+					// Get current products from localStorage
+					const products = JSON.parse(localStorage.getItem('products') || '[]');
+					
+					// Remove product by index (id is 1-based, so subtract 1)
+					const productIndex = id - 1;
+					if (productIndex >= 0 && productIndex < products.length) {
+						const deletedProduct = products[productIndex];
+						products.splice(productIndex, 1);
+						
+						// Update localStorage
+						localStorage.setItem('products', JSON.stringify(products));
+						
+						// Log admin activity
+						const adminActivity = JSON.parse(localStorage.getItem('adminActivity') || '[]');
+						adminActivity.push({
+							activity: 'Product deleted',
+							user: 'admin@electro.com',
+							time: new Date().toISOString(),
+							status: 'completed'
+						});
+						localStorage.setItem('adminActivity', JSON.stringify(adminActivity));
+						
+						showAlert(`Product ${deletedProduct.name} deleted successfully`, 'success');
+						loadProducts();
+					} else {
+						showAlert('Product not found', 'error');
+					}
+				}
+			}
+
+			function editOrder(id) {
+				alert(`View Order ${id} - This would open an order details modal in a real application.`);
+			}
+
+			function deleteOrder(id) {
+				if (confirm('Are you sure you want to delete this order?')) {
+					// Get current orders from localStorage
+					const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+					
+					// Find and remove order by ID
+					const orderIndex = orders.findIndex(order => order.id === id);
+					if (orderIndex !== -1) {
+						const deletedOrder = orders[orderIndex];
+						orders.splice(orderIndex, 1);
+						
+						// Update localStorage
+						localStorage.setItem('orders', JSON.stringify(orders));
+						
+						// Log admin activity
+						const adminActivity = JSON.parse(localStorage.getItem('adminActivity') || '[]');
+						adminActivity.push({
+							activity: 'Order deleted',
+							user: 'admin@electro.com',
+							time: new Date().toISOString(),
+							status: 'completed'
+						});
+						localStorage.setItem('adminActivity', JSON.stringify(adminActivity));
+						
+						showAlert(`Order ${deletedOrder.id} deleted successfully`, 'success');
+						loadOrders();
+					} else {
+						showAlert('Order not found', 'error');
+					}
+				}
+			}
+
+			function refreshDashboard() {
+				loadDashboard();
+				showAlert('Dashboard refreshed with latest data!', 'success');
+			}
+
+			function refreshUsers() {
+				loadUsers();
+				showAlert('Users list refreshed!', 'success');
+			}
+
+			function refreshProducts() {
+				loadProducts();
+				showAlert('Products list refreshed!', 'success');
+			}
+
+			function refreshOrders() {
+				loadOrders();
+				showAlert('Orders list refreshed!', 'success');
+			}
+
+			function logout() {
+				// Clear user session
+				localStorage.removeItem('user');
+				localStorage.removeItem('cart');
+				localStorage.removeItem('wishlist');
+				
+				showAlert('Logged out successfully. Redirecting to login...', 'success');
+				
+				setTimeout(() => {
+					window.location.href = 'login.html';
+				}, 1500);
+			}
+
+			// Initialize admin panel
+			window.addEventListener('load', function() {
+				if (!checkAdminAccess()) return;
+
+				const user = JSON.parse(localStorage.getItem('user'));
+				document.getElementById('adminName').textContent = user.email.split('@')[0];
+				document.getElementById('adminEmail').textContent = user.email;
+
+				// Test if Font Awesome is loading
+				const testIcon = document.createElement('i');
+				testIcon.className = 'fa fa-user';
+				if (getComputedStyle(testIcon, ':before').content === 'none') {
+					console.warn('Font Awesome icons may not be loading properly');
+				}
+
+				// Load dashboard by default
+				loadDashboard();
+
+				// Auto-refresh dashboard every 30 seconds
+				setInterval(() => {
+					if (document.getElementById('dashboard').style.display !== 'none') {
+						loadDashboard();
+						checkForNewActivities();
+					}
+				}, 30000);
+			});
+		</script>
+	</body>
+</html> 
